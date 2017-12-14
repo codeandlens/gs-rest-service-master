@@ -59,7 +59,7 @@ public class GameController {
 			
 			response.setCode("200");
 			Content contents = new Content();
-			contents.setStatus("connact success");
+			contents.setStatus("OK");
 			response.setContents(contents);
 			
 		} catch (Exception e) {

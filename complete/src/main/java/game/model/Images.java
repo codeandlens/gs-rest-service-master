@@ -1,23 +1,14 @@
 package game.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Images {
-	
+
 	private String image;
-	
-	
-
-	public Images() {
-		super();
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-	
-	
 
 }

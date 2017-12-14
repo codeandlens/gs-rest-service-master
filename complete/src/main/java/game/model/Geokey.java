@@ -1,26 +1,15 @@
 package game.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Geokey {
 	
 	private String latitude;
-	private String longitude;
-	
-	public Geokey() {
-		super();
-	}
-	
-	public String getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-	public String getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-	
-
+	private String longtitude;
+	private String radius;
 }
