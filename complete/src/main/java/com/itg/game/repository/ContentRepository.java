@@ -1,10 +1,10 @@
-package game.repository;
+package com.itg.game.repository;
 
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import game.model.Content;
+import com.itg.game.model.Content;
 
 public interface ContentRepository extends MongoRepository<Content, String> {
 

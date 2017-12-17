@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+ 
+<html>
+
+
+
+
+<head>
+	  <title>ITG-Game</title>
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- 	  <script src="/js/postrequest.js"></script> -->
+<!--       <script src="/js/getrequest.js"></script> -->
+<!--       <script src="gs-rest-service/static/js/pages.js"></script> -->
+	  
+</head>
+
+<body>
+ 
+<div class="container">
+ 
+	<h3 style="color:blue">Page Activate</h3>
+	
+	<div>
+		<form class="form-inline" style="margin:20px 20px 20px 20px" id="callApiActivate">
+			<div class="form-group">
+				<label for="txtip" style="margin-right:5px">IP : </label>
+				<input type="text" class="form-control" id="txtip" placeholder="Enter IP"/>
+			</div>
+			<div class="form-group">
+				<label for="txtport" style="margin-right:5px">Port : </label>
+				<input type="text" class="form-control" id="txtport" placeholder="Enter PORT"/>
+			</div>
+			<button type="submit" class="btn btn-default" style="margin-left:20px; margin-right:5px">Submit</button>
+		</form>
+	</div>
+	
+	<!-- <div class="col-sm-7" id="postResultDiv">
+	</div> -->
+	
+	<div class="col-sm-7" style="margin:20px 0px 20px 0px">
+		<button id="isActivate" type="button" class="btn btn-success">Is Activate</button>
+		<button id="searchNode" type="button" class="btn btn-primary">Search Node</button>
+
+	</div>
+	
+</div>
+</body>
+</html>
+
+<script>
+	$( "#isActivate" ).click(function() {
+		console.log(window.location)
+		
+		window.location.href = window.location.href+'is-activate';
+	});
+	
+	$( "#searchNode" ).click(function() {
+		window.location.href = window.location.href+'search-node';
+	});
+		
+</script>

@@ -1,4 +1,4 @@
-package game.model;
+package com.itg.game.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
