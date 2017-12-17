@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Geokey {
-	
-	private String latitude;
-	private String longtitude;
-	private String radius;
+
+	static final int RADIUS = 10000; // m
+	private String latlong;
+	// private String latitude;
+	// private String longtitude;
+	// private String radius;
 }

@@ -1,6 +1,5 @@
 package game.model;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Node {
-	
+
+	static final int MAX_LENGTH_TITLE = 256;
+	static final int MAX_LENGTH_DESCRIPTION = 1024;
+
 	private String title;
-	private String description;
-	private List<Images> images;
-	
+	private String desc;
+	private Images images;
+
 }

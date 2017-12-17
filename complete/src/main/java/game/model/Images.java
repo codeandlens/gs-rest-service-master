@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Images {
 
-	private String image;
+	static final int MAX_WIDTH = 250;
+	static final int MAX_HEIGHT = 250;
+	
+	private String image1;
+    private String image2;
+    private String image3;
 
 }
