@@ -1,5 +1,6 @@
 package com.itg.game.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itg.game.model.CentralRequestModel;
 import com.itg.game.model.CentralResponseModel;
 import com.itg.game.model.Content;
+import com.itg.game.model.ContentResponse;
 import com.itg.game.model.Node;
+import com.itg.game.model.ResponseModel;
 import com.itg.game.repository.ContentRepository;
+
+import game.util.DistanceCalculator;
 
 @RestController
 public class GameController {
@@ -28,7 +33,7 @@ public class GameController {
 
 	@Autowired
 	MongoTemplate mongoTemplate;
-		
+
 	@RequestMapping(value = "/is_activated", method = RequestMethod.POST, consumes = { "application/json" })
 	@ResponseBody
 	public CentralResponseModel checkConnectCentral(@RequestBody CentralRequestModel request) {
@@ -40,7 +45,7 @@ public class GameController {
 			/*
 			 * API Call Central Is_actiated
 			 */
-			
+
 			response.setCode("200");
 			Content contents = new Content();
 			contents.setStatus("OK");
@@ -57,9 +62,9 @@ public class GameController {
 	@ResponseBody
 	public String connertCentral() {
 		String response = "";
-		//String ip = request.getIp();
-		//String port = request.getPort();
-		
+		// String ip = request.getIp();
+		// String port = request.getPort();
+
 		String ip = "";
 		String port = "";
 
@@ -71,11 +76,11 @@ public class GameController {
 			 * API Call Central actiated GET Method
 			 */
 
-			/*response.setCode("200");
-			Content contents = new Content();
-			contents.setStatus("OK");
-			response.setContents(contents);*/
-			
+			/*
+			 * response.setCode("200"); Content contents = new Content();
+			 * contents.setStatus("OK"); response.setContents(contents);
+			 */
+
 			response = "OK";
 
 		} catch (Exception e) {
@@ -86,24 +91,55 @@ public class GameController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = { "application/json" })
-	public void create(@RequestBody Node node, @RequestBody String geokey) {
+	public void create(@RequestBody Content content) {
 
-		Content content = new Content();
-		content.setGeokey(geokey);
-		content.setNode(node);
-		
 		contentRepository.save(content);
 
 	}
 
-	@RequestMapping(value = "/inquire",  method = RequestMethod.GET, produces = { "application/json" })
-	public List<Content> inquire(@PathVariable String geokey) {
+	@RequestMapping(value = "/inquire/{geokey}", method = RequestMethod.GET, produces = { "application/json" })
+	public ResponseModel inquire(@PathVariable String geokey) {
 
-		Query query = new Query();
-		//หา Node ทั้งหมดที่อยู่ในรัศมี 10 km
-		query.addCriteria(Criteria.where("distance").lt(10000));
+		ResponseModel response = new ResponseModel();
+		
+		try {
+			List<ContentResponse> list = new ArrayList<ContentResponse>();
+			String[] latlon1 = geokey.split(":");
+			double lat1 = Double.parseDouble(latlon1[0]);
+			double lon1 = Double.parseDouble(latlon1[1]);
 
-		return mongoTemplate.find(query, Content.class);
+			List<Content> contents = contentRepository.findAll();
+			for (Content content : contents) {
+				String[] latlon2 = content.getGeokey().split(":");
+				double lat2 = Double.parseDouble(latlon2[0]);
+				double lon2 = Double.parseDouble(latlon2[1]);
+
+				double distance = DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K");
+				System.out.println("distance:" + distance);
+				if (distance >= 10) {
+					ContentResponse contentRes = new ContentResponse();
+					contentRes.setNode(content.getNode());
+					list.add(contentRes);
+				}
+			}			
+
+			if (list.isEmpty()) {
+				response.setCode("422 NODE_NOT_FOUND");
+				response.setContents(list);
+
+			} else {
+				response.setCode("200");
+				response.setContents(list);
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
+		return response;
+
 	}
 
 }
